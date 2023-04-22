@@ -25,3 +25,6 @@ class Fila:
     
     def list(self): # representacao da fila como Lista
         return (self._vet)
+    
+    def __getitem__(self, key): # this allows getting an element (overrided method)
+        return self._vet[key]
