@@ -48,7 +48,7 @@ while cadastrar == True:
 
             tamanhoGrupo = int(input("Quantidade de pessoas: "))
             tempoPreparo = int(input("Tempo de preparo: "))
-            nomeResponsavel = int(input("Nome do responsável: "))
+            nomeResponsavel = str(input("Nome do responsável: "))
 
             pedido = (tamanhoGrupo, tempoPreparo, nomeResponsavel)
 
