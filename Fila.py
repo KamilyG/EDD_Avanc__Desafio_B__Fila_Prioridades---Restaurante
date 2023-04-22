@@ -22,3 +22,6 @@ class Fila:
 
     def __str__(self): # representacao da fila como string
         return str(self._vet)
+    
+    def list(self): # representacao da fila como Lista
+        return (self._vet)

@@ -1,10 +1,15 @@
 import os
-from FilaPrioridade import FilaPrioridade
+import heapq
 from Fila import Fila
 
+#minHeap
 pedidosAguardando = []
+
+#queue
 pedidosPreparando = Fila()
+
 tempoEsperaPedidosPreparando = 0
+inserções = 0
 
 cadastrar = True
 while cadastrar == True:
@@ -20,35 +25,39 @@ while cadastrar == True:
     os.system("cls")
 
     if option == "1":
-        print("Infome o tamanho da fila:")
-        tamanhoFila = int(input())
-        pedidosAguardando = FilaPrioridade(tamanhoFila)
+        print("Informe o tamanho da fila:")
+        tamanhoFilaAguardando = int(input())        
 
     elif option == "2":
-        print("Informe os dados do grupo que está fazendo o pedido!")
-        tamanhoGrupo = input("Quantidade de pessoas: ")
-        tempoPreparo = input("Tempo de preparo: ")
-        nomeResponsavel = input("Nome do responsável: ")
-        pedido = (tamanhoGrupo, tempoPreparo, nomeResponsavel)
-        pedidosAguardando.inserir(pedido)
+        if len(pedidosAguardando) < tamanhoFilaAguardando:
+            print("Informe os dados do grupo que está fazendo o pedido!")
+            tamanhoGrupo = input("Quantidade de pessoas: ")
+            tempoPreparo = input("Tempo de preparo: ")
+            nomeResponsavel = input("Nome do responsável: ")
+            pedido = (tamanhoGrupo, tempoPreparo, nomeResponsavel)
+            heapq.heappush(pedidosAguardando, pedido)
+            inserções += 1
+            print("Adicionado com sucesso!")
+        else:
+            print("Tamanho da fila esgotado!")
         
     elif option == "3":
         if len(pedidosAguardando) > 0:
-            print(pedidosAguardando.proxGrupo(pedidosAguardando))
+            print(pedidosAguardando[0])
         else:
             print("Não existem pedidos aguardando!\n")
         
     elif option == "4":
-        print("Responsável pelo pedido: " + (pedidosAguardando.proxGrupo(pedidosAguardando)[2])) 
-
-        for pedido in pedidosPreparando:
-            tempoEsperaPedidoAtual = pedido[1]
-            tempoEsperaPedidosPreparando += tempoEsperaPedidoAtual
-
-        print("Tempo de espera: " + (tempoEsperaPedidoAtual + tempoEsperaPedidosPreparando))
-
-        pedidoParaPreparo = pedidosAguardando.remover(pedidosAguardando)
+        pedidoParaPreparo = heapq.heappop(pedidosAguardando)
+        inserções -= 1
         pedidosPreparando.append(pedidoParaPreparo)
+
+        for p in pedidosPreparando.list():
+            tempoEsperaPedidoAtual = int(p[1])
+            tempoEsperaPedidosPreparando += tempoEsperaPedidoAtual
+        
+        print("Responsável pelo pedido:", (pedidosPreparando[0]))
+        print("Tempo de espera: " + (tempoEsperaPedidoAtual + tempoEsperaPedidosPreparando))
 
     elif option == "5":
         print("Pedido de: " + (pedidosPreparando.pop())[2] + ", está pronto!")
