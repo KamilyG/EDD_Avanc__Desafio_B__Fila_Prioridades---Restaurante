@@ -33,6 +33,7 @@ while cadastrar == True:
     os.system("cls")
 
 
+    #Definir tamanho da fila com prioridades
     if option == "1":
         if tamanhoFilaAguardando > 0:
             print("Tamanho da fila já foi informado!\n")
@@ -40,21 +41,26 @@ while cadastrar == True:
             print("Informe o tamanho da fila:")
             tamanhoFilaAguardando = int(input())
 
-
+        #Adicionar novo grupo na fila com prioridades
     elif option == "2":
         if len(pedidosAguardando) < tamanhoFilaAguardando:
             print("Informe os dados do grupo que está fazendo o pedido!\n")
-            tamanhoGrupo = input("Quantidade de pessoas: ")
-            tempoPreparo = input("Tempo de preparo: ")
-            nomeResponsavel = input("Nome do responsável: ")
+
+            tamanhoGrupo = int(input("Quantidade de pessoas: "))
+            tempoPreparo = int(input("Tempo de preparo: "))
+            nomeResponsavel = int(input("Nome do responsável: "))
+
             pedido = (tamanhoGrupo, tempoPreparo, nomeResponsavel)
+
             heapq.heappush(pedidosAguardando, pedido)
             inserções += 1
             print("Adicionado com sucesso!\n")
+
         else:
             print("Tamanho da fila esgotado!\n")
         
 
+    #Mostrar próximo grupo aguardando
     elif option == "3":
         if len(pedidosAguardando) > 0:
             print(pedidosAguardando[0])
@@ -62,19 +68,20 @@ while cadastrar == True:
             print("Não existem pedidos aguardando!\n")
         
 
+    #Preparar refeição
     elif option == "4":
             if len(pedidosAguardando) > 0:
                 pedidoParaPreparo = heapq.heappop(pedidosAguardando)
-                inserções -= 1
                 pedidosPreparando.append(pedidoParaPreparo)
-                tempoEsperaPedidoAtual = int(pedidoParaPreparo[1])
-                
+                inserções -= 1
+    
                 print("Responsável pelo pedido:", (pedidosPreparando.__getitem__(0))[2])
                 print("Tempo de espera:", (tempoEspera(pedidosPreparando)))
             else:
                 print("Não existem pedidos para preparar!\n")
 
 
+    #Entregar refeição
     elif option == "5":
         if len(pedidosPreparando) > 0:
             print("Pedido de:", (pedidosPreparando.pop())[2] + ", está pronto!\n")
