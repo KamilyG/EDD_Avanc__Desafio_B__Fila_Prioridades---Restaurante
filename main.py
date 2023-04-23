@@ -26,6 +26,7 @@ while cadastrar == True:
         "3 - Mostrar próximo grupo aguardando\n"
         "4 - Preparar refeição\n"
         "5 - Entregar refeição\n"
+        "6 - Gerar Simulação\n"
         "0 - Sair\n")
     print("Escolha o que você deseja fazer:")
 
@@ -87,13 +88,31 @@ while cadastrar == True:
             print("Pedido de:", (pedidosPreparando.pop())[2] + ", está pronto!\n")
         else:
             print("Não existem pedidos prontos!\n")
-        
+    
+    #Simulação previamente pronta    
+    elif option == "6":
+        tamanhoFilaAguardando = 10
+        if len(pedidosAguardando) < tamanhoFilaAguardando:
+            pedido =  (3, 30, "Carla")
+            heapq.heappush(pedidosAguardando, pedido)
+            pedido =  (4, 40, "Diego")
+            heapq.heappush(pedidosAguardando, pedido)
+            pedido =  (6, 60, "João")
+            heapq.heappush(pedidosAguardando, pedido)
+            pedido =  (1, 10, "Maria")
+            heapq.heappush(pedidosAguardando, pedido)   
+            pedido =  (3, 30, "Anderson")
+            heapq.heappush(pedidosAguardando, pedido)
+            pedido =  (4, 40, "Maiara")
+            heapq.heappush(pedidosAguardando, pedido)
+            pedido =  (6, 60, "Jorge")
+            heapq.heappush(pedidosAguardando, pedido)
+            pedido =  (1, 10, "Tânia")
+            heapq.heappush(pedidosAguardando, pedido)       
+        else:
+            print("Tamanho da fila esgotado!\n")   
 
-#6) Gerar simulação ##############################################################################################
-#    a. Gerar aleatoriamente vários grupos de diferentes tamanhos, nomes e tempo de preparo e realizar a
-#adição a uma fila previamente vazia, para então o usuário interagir através das opções já existentes
-#no menu, sem ter que ficar digitando os dados.
-
+                           
     elif option == "0":
         exit()
 
