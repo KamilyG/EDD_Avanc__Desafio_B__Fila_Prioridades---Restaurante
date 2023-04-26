@@ -26,7 +26,7 @@ while cadastrar == True:
         "3 - Mostrar próximo grupo aguardando\n"
         "4 - Preparar refeição\n"
         "5 - Entregar refeição\n"
-        "6 - Gerar Simulação\n"
+        "6 - Gerar Simulação com fila de tamanho igual a 10\n"
         "0 - Sair\n")
     print("Escolha o que você deseja fazer:")
 
@@ -91,26 +91,22 @@ while cadastrar == True:
     
     #Simulação previamente pronta    
     elif option == "6":
-        tamanhoFilaAguardando = 10
-        if len(pedidosAguardando) < tamanhoFilaAguardando:
-            pedido =  (3, 30, "Carla")
-            heapq.heappush(pedidosAguardando, pedido)
-            pedido =  (4, 40, "Diego")
-            heapq.heappush(pedidosAguardando, pedido)
-            pedido =  (6, 60, "João")
-            heapq.heappush(pedidosAguardando, pedido)
-            pedido =  (1, 10, "Maria")
-            heapq.heappush(pedidosAguardando, pedido)   
-            pedido =  (3, 30, "Anderson")
-            heapq.heappush(pedidosAguardando, pedido)
-            pedido =  (4, 40, "Maiara")
-            heapq.heappush(pedidosAguardando, pedido)
-            pedido =  (6, 60, "Jorge")
-            heapq.heappush(pedidosAguardando, pedido)
-            pedido =  (1, 10, "Tânia")
-            heapq.heappush(pedidosAguardando, pedido)       
+        if tamanhoFilaAguardando > 0:
+            print("Fila já existe!\n")
         else:
-            print("Tamanho da fila esgotado!\n")   
+            tamanhoFilaAguardando = 10 #ainda sobra 2 espaços para adição de grupos na fila
+            if len(pedidosAguardando) < tamanhoFilaAguardando:
+                heapq.heappush(pedidosAguardando, (3, 30, "Carla"))
+                heapq.heappush(pedidosAguardando, (4, 40, "Diego"))
+                heapq.heappush(pedidosAguardando, (6, 60, "João"))
+                heapq.heappush(pedidosAguardando, (1, 10, "Maria"))   
+                heapq.heappush(pedidosAguardando, (3, 30, "Anderson"))
+                heapq.heappush(pedidosAguardando, (4, 40, "Maiara"))
+                heapq.heappush(pedidosAguardando, (6, 60, "Jorge"))
+                heapq.heappush(pedidosAguardando, (1, 10, "Tânia"))    
+                inserções = 10   
+            else:
+                print("Tamanho da fila esgotado!\n")   
 
                            
     elif option == "0":
